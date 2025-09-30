@@ -36,11 +36,20 @@ function Header() {
                 Sign in
               </button>
             </div>
+             <button className="open-app-button">
+        Open App
+      </button>
+      <button className="mobile-search-button">
+        <ion-icon name="search-outline"></ion-icon>
+      </button>
+      <button className="mobile-menu-button">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
           </div>
         </div>
       </div>
 
-   
+
   );
 }
 

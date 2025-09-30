@@ -3,10 +3,11 @@ function Organizers() {
     <div className="organizers-container">
       <div className="organizers">
         <h2>Most happening Organizers in Jaipur</h2>
+        <div className="organizers-main">
         <ul>
           <li>
             <img
-              src="https://lh4.googleusercontent.com/-5e3tyJBF0IE/AAAAAAAAAAI/AAAAAAAAHg8/UugG5gYf-js/photo.jpg?sz=200"
+              src="https://event-frontend12.onrender.com/assets/org5-B1L2Ck8x.png"
               alt=""
             />
             <a href="#">EngieExpo Industrial Exhibitions </a>
@@ -40,7 +41,7 @@ function Organizers() {
           </li>
           <li>
             <img
-              src="https://lh3.googleusercontent.com/a-/AOh14Gh9Y896CuqLZWvaKRbpODsSVKv-X1rkszWXKLUC=s96-c?sz=200"
+              src="https://play-lh.googleusercontent.com/SI26dmhoYzDnpUoEm1pQpRECb8o6GKkUV8wOOnKWRSLVWdA6ln6Wshw1jHH-DNt0yg=w480-h960-rw"
               alt=""
             />
             <a href="#">Startup News</a>
@@ -140,6 +141,7 @@ function Organizers() {
             <button>Follow</button>
           </li>
         </ul>
+        </div>
       </div>
     </div>
   );

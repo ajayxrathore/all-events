@@ -3,6 +3,9 @@ function SectionCard2() {
     <div className="section-card2-container">
       <div className="section-card-2">
       <h1>Explore events by date</h1>
+      <div className="section-card-2-main">
+
+
         <ul>
           <li>
             <h3>Today</h3>
@@ -30,6 +33,7 @@ function SectionCard2() {
             <img src="https://cdn2.allevents.in/transup/b3/f3af101f814b09a53ad3ea25882810/calendar_icon.webp" alt="" />
           </li>
         </ul>
+        </div>
       </div>
     </div>
   );

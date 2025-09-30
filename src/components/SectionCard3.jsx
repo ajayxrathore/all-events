@@ -5,6 +5,7 @@ function SectionCard3() {
     <div className='section-card3-container'>
         <div className='section-card3'>
             <h1>Popular formats in <span>Jaipur</span></h1>
+            <div className='section-card-3-main'>
             <ul>
                 <li>
                     <p>Performance</p>
@@ -35,6 +36,7 @@ function SectionCard3() {
                     <img src="https://cdn2.allevents.in/transup/e4/c7c4f7634c45a19b17bd2044fc943a/crowd-people-are-walking-around-carousel-night.jpg" alt="" />
                 </li>
             </ul>
+            </div>
         </div>
     </div>
   )
