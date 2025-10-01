@@ -110,7 +110,7 @@ function Header({SignInButtonClicked, createEventButton}) {
               </button>
 
               <button className="mobile-menu-option">
-                <ion-icon name="settings-outline"></ion-icon>
+               <ion-icon name="help-circle-outline"></ion-icon>
                 Need help?
               </button>
             </div>
