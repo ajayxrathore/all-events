@@ -105,7 +105,7 @@ function Header({SignInButtonClicked, createEventButton}) {
               </div>
 
               <button className="mobile-menu-option">
-                <ion-icon name="heart-outline"></ion-icon>
+                <ion-icon name="cloud-download-outline"></ion-icon>
                Get the AllEventsApp
               </button>
 
