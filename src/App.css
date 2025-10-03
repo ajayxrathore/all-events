@@ -43,6 +43,14 @@ body {
     gap: 20.125rem;
 }
 
+.create-event-page-header .top-container {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-shadow: 0 1px 40px rgba(0, 0, 0, 0.1);
+}
+
 .left-topbar {
     display: flex;
     align-items: center;
@@ -165,6 +173,247 @@ a {
     font-size: 0.875rem;
     cursor: pointer;
 }
+
+
+/*  */
+/*  */
+/*  */
+/*  */
+
+/* Modal Overlay Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark semi-transparent background */
+    backdrop-filter: blur(5px);
+    /* Blur effect for background */
+}
+
+.signin-modal {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    z-index: 10001;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.modal-close-button:hover {
+    background: #f3f4f6;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+    margin: 0 0 0.5rem 0;
+    color: #1f2937;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.modal-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+/* Social Buttons */
+.social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.social-button:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+.social-button:active {
+    transform: scale(0.98);
+}
+
+.social-button.facebook {
+    border-color: #1877f2;
+    color: #1877f2;
+}
+
+.social-button.facebook:hover {
+    background: #f0f4ff;
+}
+
+.social-button.google {
+    border-color: #db4437;
+    color: #db4437;
+}
+
+.social-button.google:hover {
+    background: #fef2f2;
+}
+
+.social-button.email {
+    border-color: #067ed4;
+    color: #067ed4;
+}
+
+.social-button.email:hover {
+    background: #f0f7ff;
+}
+
+.social-button ion-icon {
+    font-size: 1.25rem;
+}
+
+/* Email Form */
+.email-form {
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #067ed4;
+    box-shadow: 0 0 0 3px rgba(6, 126, 212, 0.1);
+}
+
+.continue-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #067ed4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.continue-button:hover {
+    background: #0568b5;
+}
+
+.continue-button:active {
+    transform: scale(0.98);
+}
+
+/* Terms Text */
+.terms-text {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+.terms-text a {
+    color: #067ed4;
+    text-decoration: none;
+}
+
+.terms-text a:hover {
+    text-decoration: underline;
+}
+
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+
+
+
 
 /* navbar css */
 .container {
@@ -2420,4 +2669,202 @@ p {
 .mobile-menu-option ion-icon {
     font-size: 1.25rem;
     color: #6b7280;
+}
+
+
+
+/* Create Event */
+
+.create-event-page {
+    display: flex;
+    justify-content: center;
+    padding: 5rem 1rem;
+    background-color: #f9fafb;
+}
+
+.create-event-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+.create-event-container h1 {
+    font-size: 1.75rem;
+    margin: 0;
+}
+
+.create-event-container h3 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.create-event-container p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 5px;
+}
+
+.create-event-container label {
+    display: flex;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.create-event-container input,
+.create-event-container textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+}
+
+.record-dropdown .card-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+
+.youtube-card,
+.vimeo-card,
+.others-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    font-weight: 500;
+}
+
+
+.youtube-dropdown,
+.vimeo-dropdown,
+.others-dropdown {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.location-section {
+    display: flex;
+    margin-top: 5px;
+}
+
+.venue-location-card,
+.online-card,
+.online-location-card,
+.record-location-card,
+.record-card,
+.type-cards {
+    display: flex;
+    width: 40%;
+}
+
+
+.venue-card,
+.online-card,
+.record-card,
+.single-event,
+.recurring-event {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    display: inline;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.venue-card ion-icon,
+.online-card ion-icon,
+.record-card ion-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.youtube-card ion-icon {
+    color: red;
+}
+
+.vimeo-card ion-icon {
+    color: blue;
+}
+
+.active-card {
+    border-color: lightgreen;
+}
+
+
+.venue-dropdown,
+.record-dropdown,
+.single-event-dropdown,
+.recurring-event-dropdown {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+
+.create-event-container>button[type="submit"] {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.date-time h1 {
+    margin: 15px;
+}
+
+.date-time h3 {
+    padding: 20px;
+}
+
+.date-time .type-cards {
+    display: flex;
+    margin-left: 20px;
+}
+
+.event-description {
+    padding: 0;
+    margin: 0;
+}
+
+.event-description h3 {
+    margin: 20px;
+}
+
+.event-description textarea {
+    height: 200px;
+}
+
+.organizer-page h3 {
+    margin-bottom: 10px;
+}
+
+textarea {
+    overflow: auto;
+    resize: none;
 }
