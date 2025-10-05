@@ -29,7 +29,40 @@ function Header({ showSearch = true }) {
       navigator.userAgent
     );
   };
+  useEffect(() => {
+    const handleRedirectResult = async () => {
+      try {
+        // console.log("checking redirect");
+        const result = await getRedirectResult(auth);
+        // console.log("redirect result:", result);
+        // console.log({ currentUser });
 
+        if (result) {
+          const user = result.user;
+        //   console.log("User signed in with Google redirect");
+          const userDocRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (!userDoc.exists()) {
+            await setDoc(userDocRef, {
+              uid: user.uid,
+              name: user.displayName,
+              email: user.email,
+              createdAt: new Date(),
+            });
+            // console.log("user doc created in firestore");
+          } else {
+            // console.log("user already exists in firestore.");
+          }
+          setShowSignInModal(false);
+        }
+      } catch (error) {
+        // console.error("Error handling redirect result:", error);
+      }
+    };
+
+    handleRedirectResult();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,14 +129,14 @@ function Header({ showSearch = true }) {
     setShowSignInModal(true);
   };
 
-  const handleCreateEventFromMobile = () => {
-    setIsMobileMenuOpen(false);
-  };
+//   const handleCreateEventFromMobile = () => {
+//     setIsMobileMenuOpen(false);
+//   };
 
   const handleGoogleSignIn = async () => {
     try {
       if (isMobileDevice()) {
-        // Use redirect for mobile devices
+
         await signInWithRedirect(auth, googleProvider);
       } else {
         const userCredential = await signInWithPopup(auth, googleProvider);
@@ -127,45 +160,10 @@ function Header({ showSearch = true }) {
         }
       }
     } catch {
-      console.error("Error Signining with google");
-      alert("Error");
+    //   console.error("Error Signining with google");
     }
   };
-  useEffect(() => {
-    const handleRedirectResult = async () => {
-      try {
-        console.log("checking redirect result...");
-const result = await getRedirectResult(auth);
-console.log("redirect result:", result);
-        console.log({currentUser});
 
-
-        if (result) {
-          const user = result.user;
-          console.log("User signed in with Google redirect");
-          const userDocRef = doc(db, "users", user.uid);
-          const userDoc = await getDoc(userDocRef);
-
-          if (!userDoc.exists()) {
-            await setDoc(userDocRef, {
-              uid: user.uid,
-              name: user.displayName,
-              email: user.email,
-              createdAt: new Date(),
-            });
-            console.log("user doc created in firestore");
-          } else {
-            console.log("user already exists in firestore.");
-          }
-          setShowSignInModal(false);
-        }
-      } catch (error) {
-        console.error("Error handling redirect result:", error);
-      }
-    };
-
-    handleRedirectResult();
-  }, []);
   const handleEmailSignIn = () => {
     setShowSignInModal(false);
     setShowEmailModal(true);

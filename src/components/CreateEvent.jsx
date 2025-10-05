@@ -2,8 +2,9 @@ import Header from "./Header.jsx";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
-import { doc , getDoc} from 'firebase/firestore'
+import { doc , getDoc, addDoc, collection} from 'firebase/firestore'
 import { db} from '../firebase/firestore.js'
+
 function CreateEvent() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -17,6 +18,39 @@ function CreateEvent() {
   const [activeRecordSource, setActiveRecordSource] = useState("youtube");
   const [userDoc, setUserDoc] = useState(null);
   const [loadingUserDoc, setLoadingUserDoc] = useState(true);
+  const handleContinue = async (e) => {
+  e.preventDefault();
+
+  if (!currentUser) {
+    alert("You must be logged in to create an event.");
+    return;
+  }
+
+  try {
+    const eventData = {
+      name,
+      location,
+      city,
+      eventType,
+      activeLocation,
+      activeRecordSource,
+      youtubeVideoLink,
+      vimeoVideoLink,
+      organizerName: currentUser.displayName || userDoc?.name || "Unknown Organizer",
+      userId: currentUser.uid,
+      createdAt: new Date(),
+    };
+
+    await addDoc(collection(db, "events"), eventData);
+
+    // console.log(" event created successfully");
+    navigate("/");
+  } catch (error) {
+    // console.error(" error saving event:", error);
+    alert("failed to create event. please try again.");
+  }
+};
+
   useEffect(() => {
     if (!loading && !currentUser) {
       navigate("/");
@@ -33,11 +67,10 @@ function CreateEvent() {
           if (userDocSnap.exists()) {
             setUserDoc(userDocSnap.data());
           } else {
-            console.log("No user document found!");
-            // You might want to create a user document here if it doesn't exist
+            // console.log("No user document found!");
           }
         } catch (error) {
-          console.error("Error fetching user document:", error);
+        //   console.error("Error fetching user document:", error);
         } finally {
           setLoadingUserDoc(false);
         }
@@ -48,7 +81,7 @@ function CreateEvent() {
   }, [currentUser]);
   if (loading || loadingUserDoc) {
     return (
-      <div className="loading-container">
+      <div>
         <div>Loading...</div>
       </div>
     );
@@ -106,7 +139,7 @@ function CreateEvent() {
                 <ion-icon name="recording-outline"></ion-icon>
                 <h3>Recorded Events</h3>
                 <p>
-                  Provide instant access to pre-recorded content after purchase.{" "}
+                  Provide instant access to pre-recorded content after purchase.
                 </p>
               </div>
             </div>
@@ -163,7 +196,7 @@ function CreateEvent() {
                     type="text"
                     value={vimeoVideoLink}
                     onChange={(e) => setVimeoVideoLink(e.target.value)}
-                    placeholder="ex. https://vimeo.com/yourvideo"
+                    placeholder="https://vimeo.com/yourvideo"
                   />
                   <p>
                     People who register for your event will get instant access
@@ -222,7 +255,7 @@ function CreateEvent() {
             <div className="type-cards">
               <div
                 className={`single-event ${
-                  eventType === "single" ? "active-card show-dropdown" : ""
+                  eventType === "single" ? "active-card " : ""
                 }`}
                 onClick={() => setEventType("single")}
               >
@@ -231,7 +264,7 @@ function CreateEvent() {
 
               <div
                 className={`recurring-event ${
-                  eventType === "recurring" ? "active-card show-dropdown" : ""
+                  eventType === "recurring" ? "active-card " : ""
                 }`}
                 onClick={() => setEventType("recurring")}
               >
@@ -276,7 +309,7 @@ function CreateEvent() {
                 <div className="organizer-name">{userDoc.name}</div>
               ))}
           </div>
-          <button type="submit">Continue</button>
+          <button  onClick={handleContinue} type="submit">Continue</button>
         </div>
       </div>
     </>
