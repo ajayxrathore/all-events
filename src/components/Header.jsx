@@ -36,7 +36,6 @@ function Header({ showSearch = true }) {
         if (result) {
           const user = result.user;
           console.log("User signed in with Google redirect");
-          alert("user signed in")
           const userDocRef = doc(db, "users", user.uid);
           const userDoc = await getDoc(userDocRef);
 
@@ -58,7 +57,7 @@ function Header({ showSearch = true }) {
       }
     };
 
-    handleRedirectResult();
+    setTimeout(handleRedirectResult, 500);
   }, []);
 
   const handleSubmit = async (e) => {
