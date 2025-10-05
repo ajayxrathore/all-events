@@ -2,6 +2,8 @@ import Header from "./Header.jsx";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { doc , getDoc} from 'firebase/firestore'
+import { db} from '../firebase/firestore.js'
 function CreateEvent() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -9,18 +11,47 @@ function CreateEvent() {
   const [city, setCity] = useState("");
   const [youtubeVideoLink, setYoutubeVideoLink] = useState("");
   const [vimeoVideoLink, setVimeoVideoLink] = useState("");
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
   const [activeLocation, setActiveLocation] = useState("venue");
   const [eventType, setEventType] = useState("single");
   const [activeRecordSource, setActiveRecordSource] = useState("youtube");
+  const [userDoc, setUserDoc] = useState(null);
+  const [loadingUserDoc, setLoadingUserDoc] = useState(true);
   useEffect(() => {
-    if (!currentUser) {
-      alert("Please Sign In to add Events");
+    if (!loading && !currentUser) {
       navigate("/");
     }
-  }, [currentUser, navigate]);
-  if (!currentUser) {
-    return null;
+  }, [currentUser, loading, navigate]);
+   useEffect(() => {
+    const fetchUserDoc = async () => {
+      if (currentUser) {
+        try {
+          setLoadingUserDoc(true);
+          const userDocRef = doc(db, "users", currentUser.uid);
+          const userDocSnap = await getDoc(userDocRef);
+
+          if (userDocSnap.exists()) {
+            setUserDoc(userDocSnap.data());
+          } else {
+            console.log("No user document found!");
+            // You might want to create a user document here if it doesn't exist
+          }
+        } catch (error) {
+          console.error("Error fetching user document:", error);
+        } finally {
+          setLoadingUserDoc(false);
+        }
+      }
+    };
+
+    fetchUserDoc();
+  }, [currentUser]);
+  if (loading || loadingUserDoc) {
+    return (
+      <div className="loading-container">
+        <div>Loading...</div>
+      </div>
+    );
   }
   return (
     <>
@@ -238,9 +269,12 @@ function CreateEvent() {
           </div>
           <div className="organizer-page">
             <h3>Organizer Page</h3>
-            {currentUser && (
-              <div className="organizer-name">{currentUser.displayName}</div>
-            )}
+            {currentUser &&
+              (currentUser.displayName ? (
+                <div className="organizer-name">{currentUser.displayName}</div>
+              ) : (
+                <div className="organizer-name">{userDoc.name}</div>
+              ))}
           </div>
           <button type="submit">Continue</button>
         </div>

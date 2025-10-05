@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firestore.js";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signInWithRedirect , getRedirectResult } from "firebase/auth";
 import { useAuth } from "../context/AuthContext.jsx";
 import { Link } from "react-router-dom";
 function Header({ showSearch = true }) {
@@ -19,6 +19,39 @@ function Header({ showSearch = true }) {
   const [password, setPassword] = useState("");
   const googleProvider = new GoogleAuthProvider();
   const { currentUser } = useAuth();
+const isMobileDevice = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+   useEffect(() => {
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          const user = result.user;
+          console.log("User signed in with Google redirect");
+          const userDocRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (!userDoc.exists()) {
+            await setDoc(userDocRef, {
+              uid: user.uid,
+              name: user.displayName,
+              email: user.email,
+              createdAt: new Date(),
+            });
+            console.log("user doc created in firestore");
+          } else {
+            console.log("user already exists in firestore.");
+          }
+          setShowSignInModal(false);
+        }
+      } catch (error) {
+        console.error("Error handling redirect result:", error);
+      }
+    };
+
+    handleRedirectResult();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,6 +123,13 @@ function Header({ showSearch = true }) {
   };
 
   const handleGoogleSignIn = async () => {
+     try {
+      if (isMobileDevice()) {
+        // Use redirect for mobile devices
+        await signInWithRedirect(auth, googleProvider);
+        alert('Reached')
+
+      }else {
     const userCredential = await signInWithPopup(auth, googleProvider);
     const user = userCredential.user;
     // console.log("User signed in with Google");
@@ -109,7 +149,10 @@ function Header({ showSearch = true }) {
       //   console.log("user already exists in firestore.");
       setShowSignInModal(false);
     }
-  };
+  }}catch{
+    console.error("Error Signining with google")
+    alert('Error')
+  }}
   const handleEmailSignIn = () => {
     setShowSignInModal(false);
     setShowEmailModal(true);
@@ -148,10 +191,15 @@ function Header({ showSearch = true }) {
             </div>
           )}
           <div className="right-topbar-right">
+           { !currentUser ? (<div  className="create-event" onClick={(e)=>setShowSignInModal(true)}>
+              <ion-icon name="add-outline"></ion-icon>
+              Create Event
+            </div>):(
             <Link to="/create-event" className="create-event">
               <ion-icon name="add-outline"></ion-icon>
               Create Event
-            </Link>
+            </Link>)
+            }
 
             {!currentUser ? (
               <button onClick={handleSignInClick} className="signin-button">
@@ -213,13 +261,15 @@ function Header({ showSearch = true }) {
               )}
               <div className="upper-mobile-section">
                 <h4>Host Control</h4>
-                <button
-                  className="mobile-menu-option"
-                  onClick={handleCreateEventFromMobile}
-                >
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                  Create an event
-                </button>
+                 { !currentUser ? (<div  className="mobile-menu-option" onClick={(e)=>setShowSignInModal(true)}>
+              <ion-icon name="add-outline"></ion-icon>
+              Create Event
+            </div>):(
+            <Link to="/create-event" className="mobile-menu-option">
+              <ion-icon name="add-outline"></ion-icon>
+              Create Event
+            </Link>)
+            }
                 <button className="mobile-menu-option">
                   <ion-icon name="calendar-outline"></ion-icon>
                   Manage events
