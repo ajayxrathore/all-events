@@ -134,6 +134,7 @@ function Header({ showSearch = true }) {
       if (isMobileDevice()) {
         // Use redirect for mobile devices
         await signInWithRedirect(auth, googleProvider);
+        alert('here')
       } else {
         const userCredential = await signInWithPopup(auth, googleProvider);
         const user = userCredential.user;
