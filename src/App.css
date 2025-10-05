@@ -2868,3 +2868,48 @@ textarea {
     overflow: auto;
     resize: none;
 }
+
+@media (max-width: 480px) {
+    .venue-location-card,
+.online-location-card,
+.record-location-card,
+.type-cards {
+    display: flex;
+    width: 100%;
+}
+
+.venue-card,
+.record-card,
+.single-event,
+.recurring-event {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    width: 100%;
+    transition: border-color 0.2s ease-in-out;
+}
+
+
+.location-section {
+    display: block;
+    margin-top: 5px;
+}
+
+.venue-dropdown,
+.record-dropdown,
+.single-event-dropdown,
+.recurring-event-dropdown {
+    margin-top: 1.5rem;
+    /* width: 100%; */
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+p{
+    white-space: wrap;
+}
+}
