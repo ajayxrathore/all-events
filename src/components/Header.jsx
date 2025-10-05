@@ -36,6 +36,7 @@ function Header({ showSearch = true }) {
         if (result) {
           const user = result.user;
           console.log("User signed in with Google redirect");
+          alert("user signed in")
           const userDocRef = doc(db, "users", user.uid);
           const userDoc = await getDoc(userDocRef);
 
@@ -134,7 +135,6 @@ function Header({ showSearch = true }) {
       if (isMobileDevice()) {
         // Use redirect for mobile devices
         await signInWithRedirect(auth, googleProvider);
-        alert('here')
       } else {
         const userCredential = await signInWithPopup(auth, googleProvider);
         const user = userCredential.user;
