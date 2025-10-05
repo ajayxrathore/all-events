@@ -15,6 +15,7 @@ import {
 } from "firebase/auth";
 import { useAuth } from "../context/AuthContext.jsx";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Header({ showSearch = true }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
@@ -24,6 +25,7 @@ function Header({ showSearch = true }) {
   const [password, setPassword] = useState("");
   const googleProvider = new GoogleAuthProvider();
   const { currentUser } = useAuth();
+  const navigate = useNavigate()
   const isMobileDevice = () => {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
@@ -63,7 +65,9 @@ function Header({ showSearch = true }) {
 
     handleRedirectResult();
   }, []);
-
+  const homepage = ()=>{
+    navigate('/')
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -183,6 +187,7 @@ function Header({ showSearch = true }) {
               className="alleventslogo"
               src="https://cdn2.allevents.in/media-kit/svg/ae-logo-vector.svg"
               alt="AllEvents"
+              onClick={homepage}
             />
             <span className="topbar-span">|</span>
           </div>
@@ -214,6 +219,20 @@ function Header({ showSearch = true }) {
               <Link to="/create-event" className="create-event">
                 <ion-icon name="add-outline"></ion-icon>
                 Create Event
+              </Link>
+            )}
+             {!currentUser ? (
+              <div
+                className="create-event"
+                onClick={(e) => setShowSignInModal(true)}
+              >
+                <ion-icon name="sparkles-outline"></ion-icon>
+                All Events
+              </div>
+            ) : (
+              <Link to="/all-events" className="create-event">
+                <ion-icon name="sparkles-outline"></ion-icon>
+                All Events
               </Link>
             )}
 
@@ -291,10 +310,10 @@ function Header({ showSearch = true }) {
                     Create Event
                   </Link>
                 )}
-                <button className="mobile-menu-option">
+                <Link to='/all-events' className="mobile-menu-option" >
                   <ion-icon name="calendar-outline"></ion-icon>
                   Manage events
-                </button>
+                </Link>
               </div>
 
               <button className="mobile-menu-option">

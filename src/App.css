@@ -2901,3 +2901,33 @@ textarea {
     border-color: lightgreen;
   }
 }
+
+
+
+/* AllEvents.jsx */
+.events-page{
+    width: 100%;
+
+}
+.events-grid {
+ width: 77%;
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+}
+
+

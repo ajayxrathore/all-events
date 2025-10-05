@@ -16,11 +16,15 @@ const router = createBrowserRouter([
   {
     path: "/create-event",
     element: <CreateEvent />,
-  },
+  },{
+    path:"/all-events",
+    element:<AllEvents/>
+  }
 ]);
 import { AuthProvider } from "./context/AuthContext.jsx";
 import CreateEvent from "./components/CreateEvent.jsx";
 import Home from "./components/Home.jsx";
+import AllEvents from "./components/AllEvents.jsx";
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <RouterProvider router={router}></RouterProvider>
