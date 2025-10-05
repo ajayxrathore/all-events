@@ -29,36 +29,7 @@ function Header({ showSearch = true }) {
       navigator.userAgent
     );
   };
-  useEffect(() => {
-    const handleRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-          const user = result.user;
-          console.log("User signed in with Google redirect");
-          const userDocRef = doc(db, "users", user.uid);
-          const userDoc = await getDoc(userDocRef);
 
-          if (!userDoc.exists()) {
-            await setDoc(userDocRef, {
-              uid: user.uid,
-              name: user.displayName,
-              email: user.email,
-              createdAt: new Date(),
-            });
-            console.log("user doc created in firestore");
-          } else {
-            console.log("user already exists in firestore.");
-          }
-          setShowSignInModal(false);
-        }
-      } catch (error) {
-        console.error("Error handling redirect result:", error);
-      }
-    };
-
-    setTimeout(handleRedirectResult, 500);
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -160,6 +131,41 @@ function Header({ showSearch = true }) {
       alert("Error");
     }
   };
+  useEffect(() => {
+    const handleRedirectResult = async () => {
+      try {
+        console.log("checking redirect result...");
+const result = await getRedirectResult(auth);
+console.log("redirect result:", result);
+        console.log({currentUser});
+
+
+        if (result) {
+          const user = result.user;
+          console.log("User signed in with Google redirect");
+          const userDocRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (!userDoc.exists()) {
+            await setDoc(userDocRef, {
+              uid: user.uid,
+              name: user.displayName,
+              email: user.email,
+              createdAt: new Date(),
+            });
+            console.log("user doc created in firestore");
+          } else {
+            console.log("user already exists in firestore.");
+          }
+          setShowSignInModal(false);
+        }
+      } catch (error) {
+        console.error("Error handling redirect result:", error);
+      }
+    };
+
+    handleRedirectResult();
+  }, []);
   const handleEmailSignIn = () => {
     setShowSignInModal(false);
     setShowEmailModal(true);
