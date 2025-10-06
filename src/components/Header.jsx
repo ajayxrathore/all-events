@@ -227,12 +227,12 @@ function Header({ showSearch = true }) {
                 onClick={(e) => setShowSignInModal(true)}
               >
                 <ion-icon name="sparkles-outline"></ion-icon>
-                All Events
+                Events for you
               </div>
             ) : (
               <Link to="/all-events" className="create-event">
                 <ion-icon name="sparkles-outline"></ion-icon>
-                All Events
+                Events for you
               </Link>
             )}
 

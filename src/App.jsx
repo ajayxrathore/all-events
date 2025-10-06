@@ -1,4 +1,5 @@
 import "./App.css";
+import AllEvents from "./components/AllEvents";
 import DownloadApp from "./components/DownloadApp";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -22,6 +23,7 @@ function App() {
       <div className="main-content">
         <Navbar />
         <HeroBanner />
+        <AllEvents/>
         <HeroList />
         <HeroArtistList />
         <SectionCard />

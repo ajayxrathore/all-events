@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firestore.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header.jsx";
+
 
 function AllEvents() {
   const { currentUser, loading } = useAuth();
@@ -13,7 +13,7 @@ function AllEvents() {
 
   useEffect(() => {
     if (!loading && !currentUser) {
-      navigate("/"); 
+      navigate("/");
     }
   }, [currentUser, loading, navigate]);
 
@@ -46,9 +46,8 @@ function AllEvents() {
 
   return (
     <>
-      <Header showSearch={false} />
       <div className="events-page">
-        <h1>All Events</h1>
+        <h1>Events for you</h1>
 
         {events.length === 0 ? (
           <p>No events found </p>
