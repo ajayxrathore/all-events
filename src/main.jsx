@@ -11,6 +11,7 @@ import EventMedia from "./components/EventMedia.jsx";
 import Tickets from "./components/Tickets.jsx";
 import PublishEvent from "./components/PublishEvent.jsx";
 import EditEvent from "./components/EditEvent.jsx";
+import EventInfo from "./components/EventInfo.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
             element:<EditEvent/>
         }
     ]
+  },
+  {
+    path:"/eventinfo/:id",
+    element:<EventInfo/>
   },
   {
     path:"/all-events",

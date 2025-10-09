@@ -12,12 +12,23 @@ function CreateEvent() {
   const { currentUser, loading } = useAuth();
   const [userDoc, setUserDoc] = useState(null);
   const [loadingUserDoc, setLoadingUserDoc] = useState(true);
-const {
-    eventData,
-    setEventField,
-  } = useEventStore();
-    const { name, location, address, city, eventType, startDate, description,startTime, endTime, activeLocation, locationInstruction,activeRecordSource, youtubeVideoLink, vimeoVideoLink } = eventData;
-
+  const { eventData, setEventField } = useEventStore();
+  const {
+    name,
+    location,
+    address,
+    city,
+    eventType,
+    startDate,
+    description,
+    startTime,
+    endTime,
+    activeLocation,
+    locationInstruction,
+    activeRecordSource,
+    youtubeVideoLink,
+    vimeoVideoLink,
+  } = eventData;
 
   useEffect(() => {
     if (!loading && !currentUser) {
@@ -83,14 +94,13 @@ const {
       </div>
 
       <div className="create-event-page">
-
         <div className="create-event-container">
           <div className="create-event-container-left">
             <h1>Create an Event</h1>
             <label htmlFor="name">Event Name*</label>
             <input
               value={name}
-              onChange={(e) => setEventField("name",e.target.value)}
+              onChange={(e) => setEventField("name", e.target.value)}
               placeholder="Enter the Name of your event"
               required
             ></input>
@@ -103,7 +113,7 @@ const {
                   className={`venue-card ${
                     activeLocation === "venue" ? "active-card " : ""
                   }`}
-                  onClick={() => setEventField("activeLocation","venue")}
+                  onClick={() => setEventField("activeLocation", "venue")}
                 >
                   <ion-icon name="location-outline"></ion-icon>
                   <h3>Venue</h3>
@@ -115,7 +125,7 @@ const {
                   className={`online-card ${
                     activeLocation === "online" ? "active-card " : ""
                   }`}
-                  onClick={() => setEventField("activeLocation","online")}
+                  onClick={() => setEventField("activeLocation", "online")}
                 >
                   <ion-icon name="globe-outline"></ion-icon>
                   <h3>Online</h3>
@@ -127,7 +137,7 @@ const {
                   className={`record-card ${
                     activeLocation === "record" ? "active-card " : ""
                   }`}
-                  onClick={() => setEventField("activeLocation","record")}
+                  onClick={() => setEventField("activeLocation", "record")}
                 >
                   <ion-icon name="recording-outline"></ion-icon>
                   <h3>Recorded Events</h3>
@@ -146,7 +156,9 @@ const {
                     className={`youtube-card card ${
                       activeRecordSource === "youtube" ? "active-card " : ""
                     }`}
-                    onClick={() => setEventField("activeRecordSource","youtube")}
+                    onClick={() =>
+                      setEventField("activeRecordSource", "youtube")
+                    }
                   >
                     <ion-icon name="logo-youtube"></ion-icon>
                     Youtube
@@ -156,7 +168,7 @@ const {
                     className={`vimeo-card card ${
                       activeRecordSource === "vimeo" ? "active-card" : ""
                     }`}
-                    onClick={() => setEventField("activeRecordSource","vimeo")}
+                    onClick={() => setEventField("activeRecordSource", "vimeo")}
                   >
                     <ion-icon name="logo-vimeo"></ion-icon>
                     Vimeo
@@ -166,7 +178,9 @@ const {
                     className={`others-card card ${
                       activeRecordSource === "others" ? "active-card" : ""
                     }`}
-                    onClick={() => setEventField("activeRecordSource","others")}
+                    onClick={() =>
+                      setEventField("activeRecordSource", "others")
+                    }
                   >
                     Others
                   </div>
@@ -177,7 +191,9 @@ const {
                     <input
                       type="text"
                       value={youtubeVideoLink}
-                      onChange={(e) => setEventField("youtubeVideoLink",e.target.value)}
+                      onChange={(e) =>
+                        setEventField("youtubeVideoLink", e.target.value)
+                      }
                       placeholder="https://youtube.com/yourvideo"
                     />
                     <p>
@@ -192,7 +208,9 @@ const {
                     <input
                       type="text"
                       value={vimeoVideoLink}
-                      onChange={(e) => setEventField("vimeoVideoLink",e.target.value)}
+                      onChange={(e) =>
+                        setEventField("vimeoVideoLink", e.target.value)
+                      }
                       placeholder="https://vimeo.com/yourvideo"
                     />
                     <p>
@@ -211,7 +229,9 @@ const {
                       id="other-event-accss-info"
                       placeholder="Enter steps to access your event video"
                       value={locationInstruction}
-                      onChange={(e)=>setEventField("locationInstruction",e.target.value)}
+                      onChange={(e) =>
+                        setEventField("locationInstruction", e.target.value)
+                      }
                     ></textarea>
                     <p>
                       <ion-icon name="information-outline"></ion-icon>
@@ -228,7 +248,7 @@ const {
                 <input
                   type="text"
                   value={location}
-                  onChange={(e) => setEventField("location",e.target.value)}
+                  onChange={(e) => setEventField("location", e.target.value)}
                   placeholder="Enter location Name"
                   onInput={(e) => {
                     setAddressVisibility(true), setCityVisibility(true);
@@ -241,14 +261,14 @@ const {
                     id="address"
                     placeholder="Address"
                     value={address}
-                    onChange={(e)=>setEventField("address",e.target.value)}
+                    onChange={(e) => setEventField("address", e.target.value)}
                   ></textarea>
                 )}
                 {cityVisibility && (
                   <input
                     type="text"
                     value={city}
-                    onChange={(e) => setEventField("city",e.target.value)}
+                    onChange={(e) => setEventField("city", e.target.value)}
                     placeholder="City"
                     required
                   />
@@ -265,7 +285,7 @@ const {
                   className={`single-event ${
                     eventType === "single" ? "active-card " : ""
                   }`}
-                  onClick={() => setEventField("eventType","single")}
+                  onClick={() => setEventField("eventType", "single")}
                 >
                   Single Event
                 </div>
@@ -274,7 +294,7 @@ const {
                   className={`recurring-event ${
                     eventType === "recurring" ? "active-card " : ""
                   }`}
-                  onClick={() => setEventField("eventType","recurring")}
+                  onClick={() => setEventField("eventType", "recurring")}
                 >
                   Recurring Event
                 </div>
@@ -289,7 +309,7 @@ const {
                     name="date"
                     id="date"
                     value={startDate}
-                    onChange={(e) => setEventField("startDate",e.target.value)}
+                    onChange={(e) => setEventField("startDate", e.target.value)}
                   />
                 </div>
                 <div className="start-time">
@@ -299,7 +319,7 @@ const {
                     name="time"
                     id="time"
                     value={startTime}
-                    onChange={(e) => setEventField("startTime",e.target.value)}
+                    onChange={(e) => setEventField("startTime", e.target.value)}
                   />
                 </div>
               </div>
@@ -308,7 +328,13 @@ const {
               <div className="recurring-event-dropdown">
                 <div className="start-time">
                   <h3>Start Time*</h3>
-                  <input type="time" name="date" id="date" value={startTime} onChange={(e)=>setEventField("startTime",e.target.value)}/>
+                  <input
+                    type="time"
+                    name="date"
+                    id="date"
+                    value={startTime}
+                    onChange={(e) => setEventField("startTime", e.target.value)}
+                  />
                 </div>
                 <div className="end-time">
                   <h3>End Time*</h3>
@@ -317,14 +343,19 @@ const {
                     name="time"
                     id="time"
                     value={endTime}
-                    onChange={(e) => setEventField("endTime",e.target.value)}
+                    onChange={(e) => setEventField("endTime", e.target.value)}
                   />
                 </div>
               </div>
             )}
             <div className="event-description">
               <h3>Event Description*</h3>
-              <textarea name="description" id="description" value={description} onChange={(e)=>setEventField("description",e.target.value)}></textarea>
+              <textarea
+                name="description"
+                id="description"
+                value={description}
+                onChange={(e) => setEventField("description", e.target.value)}
+              ></textarea>
             </div>
             <h3>Organizer Page</h3>
             <div className="organizer-page">
@@ -337,21 +368,30 @@ const {
                   <div className="organizer-name">{userDoc.name}</div>
                 ))}
             </div>
-            <Link to='/event/event-media'>
-            <button
-            //   onClick={}
-              className="continue-button"
-              type="submit"
+            <Link
+              to="/event/event-media"
+              onClick={() =>
+                setEventField(
+                  "username",
+                  currentUser?.displayName || userDoc?.name || ""
+                )
+              }
             >
-              Continue
-            </button>
+              <button
+                //   onClick={}
+                className="continue-button"
+                type="submit"
+              >
+                Continue
+              </button>
             </Link>
           </div>
 
           <div className="create-event-container-right">
             <div className="sidebar-card video-card">
-              <div className="video-thumbnail"
-              onClick={()=>window.open("https://youtu.be/Usa-fdfTV4U")}
+              <div
+                className="video-thumbnail"
+                onClick={() => window.open("https://youtu.be/Usa-fdfTV4U")}
               >
                 <img
                   src="https://cdn2.allevents.in/transup/95/d4ec5e75c243fa960a00c472041cbd/Frame-30-1-.png"
@@ -363,12 +403,12 @@ const {
                 Check out this guide to learn how to make the most of AllEvents.
               </p>
             </div>
-              <h2>Import your events from other platforms</h2>
-              <p>
-                Have you already published your events on other platforms like
-                Facebook, Eventbrite or your own website?
-              </p>
-              <button className="import-button">Import now</button>
+            <h2>Import your events from other platforms</h2>
+            <p>
+              Have you already published your events on other platforms like
+              Facebook, Eventbrite or your own website?
+            </p>
+            <button className="import-button">Import now</button>
           </div>
         </div>
       </div>

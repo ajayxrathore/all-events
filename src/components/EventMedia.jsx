@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useEventStore } from "../store/useEventStore";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 function EventMedia() {
   const { setEventField, addMedia } = useEventStore();
   const bannerInputRef = useRef(null);
@@ -10,6 +10,9 @@ function EventMedia() {
   const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_PRESET_NAME;
   const [bannerPreview, setBannerPreview] = useState(null);
   const [mediaPreviews, setMediaPreviews] = useState([]);
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}, []);
   const handleBannerUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;

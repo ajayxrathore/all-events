@@ -136,7 +136,7 @@ function PublishEvent() {
           <div className="form-group">
             <label className="input-label">Select organizer page*</label>
             <div className="organizer-select">
-              <span>ajay rathore</span>
+              <span>{eventData.username}</span>
               <span className="select-arrow">▼</span>
             </div>
           </div>

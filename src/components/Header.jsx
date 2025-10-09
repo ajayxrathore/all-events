@@ -20,6 +20,7 @@ function Header({ showSearch = true }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
+   const [showSuccess, setShowSuccess] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,6 +79,11 @@ function Header({ showSearch = true }) {
           password
         );
         setShowEmailModal(false);
+        setShowSuccess(true)
+         setTimeout(() => {
+      setShowSuccess(false)
+    }, 2500);
+
         if (loggedinUser) {
           setEmail("");
           setPassword("");
@@ -98,6 +104,10 @@ function Header({ showSearch = true }) {
           createdAt: new Date(),
         });
         setShowEmailModal(false);
+         setShowSuccess(true)
+           setTimeout(() => {
+      setShowSuccess(false)
+    }, 2500);
       }
       setName("");
       setEmail("");
@@ -140,7 +150,6 @@ function Header({ showSearch = true }) {
   const handleGoogleSignIn = async () => {
     try {
       if (isMobileDevice()) {
-
         await signInWithRedirect(auth, googleProvider);
       } else {
         const userCredential = await signInWithPopup(auth, googleProvider);
@@ -148,7 +157,10 @@ function Header({ showSearch = true }) {
         // console.log("User signed in with Google");
         const userDocRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userDocRef);
-
+        setShowSuccess(true)
+           setTimeout(() => {
+      setShowSuccess(false)
+    }, 2500);
         if (!userDoc.exists()) {
           await setDoc(userDocRef, {
             uid: user.uid,
@@ -158,6 +170,10 @@ function Header({ showSearch = true }) {
           });
           //   console.log("user doc created in firestore");
           setShowSignInModal(false);
+          setShowSuccess(true)
+           setTimeout(() => {
+      setShowSuccess(false)
+    }, 2500);
         } else {
           //   console.log("user already exists in firestore.");
           setShowSignInModal(false);
@@ -180,6 +196,11 @@ function Header({ showSearch = true }) {
 
   return (
     <div className="topbar">
+         {showSuccess && (
+        <div className="login-popup">
+          You are signed in!
+        </div>
+      )}
       <div className="top-container">
         <div className="left-topbar">
           <div className="logo-wrapper">
@@ -427,7 +448,7 @@ function Header({ showSearch = true }) {
               <button
                 onClick={handleSubmit}
                 type="submit"
-                className="continue-button"
+                className="login-continue-button"
               >
                 Continue
               </button>

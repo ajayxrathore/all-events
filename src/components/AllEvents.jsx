@@ -54,7 +54,7 @@ function AllEvents() {
         ) : (
           <div className="events-grid">
             {events.map((event) => (
-              <div key={event.id} className="event-card">
+              <div key={event.id} className="event-card" onClick={() => navigate(`eventinfo/${event.id}`)}>
                 {event.banner && (
                 <img
                   src={event.banner}
