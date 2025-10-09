@@ -55,12 +55,16 @@ function AllEvents() {
           <div className="events-grid">
             {events.map((event) => (
               <div key={event.id} className="event-card">
+                {event.banner && (
+                <img
+                  src={event.banner}
+                  alt={event.name || "Event banner"}
+                  className="event-banner"
+                />
+              )}
                 <h2>{event.name}</h2>
                 <p>
-                  <strong>Organizer:</strong> {event.organizerName}
-                </p>
-                <p>
-                  <strong>Type:</strong> {event.eventType}
+                {event.description}
                 </p>
                 <p>
                   <strong>Location:</strong>{" "}

@@ -305,7 +305,7 @@ function Header({ showSearch = true }) {
                     Create Event
                   </div>
                 ) : (
-                  <Link to="/create-event" className="mobile-menu-option">
+                  <Link to="/event" className="mobile-menu-option">
                     <ion-icon name="add-outline"></ion-icon>
                     Create Event
                   </Link>

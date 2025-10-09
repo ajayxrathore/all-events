@@ -5,18 +5,20 @@ import { doc, getDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase/firestore.js";
 import { Link } from "react-router-dom";
 import { useEventStore } from "../store/useEventStore.js";
-function CreateEvent() {
+function EditEvent() {
+    const {
+  eventData,
+  setEventField
+} = useEventStore();
   const navigate = useNavigate();
   const [addressVisibility, setAddressVisibility] = useState(false);
   const [cityVisibility, setCityVisibility] = useState(false);
   const { currentUser, loading } = useAuth();
   const [userDoc, setUserDoc] = useState(null);
   const [loadingUserDoc, setLoadingUserDoc] = useState(true);
-const {
-    eventData,
-    setEventField,
-  } = useEventStore();
-    const { name, location, address, city, eventType, startDate, description,startTime, endTime, activeLocation, locationInstruction,activeRecordSource, youtubeVideoLink, vimeoVideoLink } = eventData;
+
+
+ const { name, location, city, eventType, startDate, startTime, endTime, description,activeLocation, locationInstruction,activeRecordSource, youtubeVideoLink, vimeoVideoLink } = eventData;
 
 
   useEffect(() => {
@@ -54,39 +56,15 @@ const {
       </div>
     );
   }
-  const homepage = () => {
-    navigate("/");
-  };
+
   return (
     <>
-      <div className="create-event-page-header">
-        <div className="logo-wrapper">
-          <img
-            className="alleventslogo"
-            src="https://cdn2.allevents.in/media-kit/svg/ae-logo-vector.svg"
-            alt="AllEvents"
-            onClick={homepage}
-          />
-        </div>
-        <div className="right-header">
-          <Link to="/create-event" className="create-event-header">
-            <ion-icon name="add-outline"></ion-icon>
-            Create Event
-          </Link>
-          <div className="help-feature">
-            <ion-icon name="chatbubbles-outline"></ion-icon>
-          </div>
-          <div className="user-profile-menu">
-            <ion-icon name="person-circle-outline"></ion-icon>
-          </div>
-        </div>
-      </div>
-
-      <div className="create-event-page">
-
+      <div className="edit-event-wrapper create-event-page">
         <div className="create-event-container">
           <div className="create-event-container-left">
-            <h1>Create an Event</h1>
+            <h1>Edit an Event</h1>
+            <h2>Basic Info</h2>
+            <h5>Name your event and tell event-goers why they should come. Add details that highlight what makes it unique.</h5>
             <label htmlFor="name">Event Name*</label>
             <input
               value={name}
@@ -94,6 +72,10 @@ const {
               placeholder="Enter the Name of your event"
               required
             ></input>
+            <div className="event-description">
+              <h3>Event Description*</h3>
+              <textarea name="description" id="description" value={description} onChange={(e)=>setEventField("description",e.target.value)}></textarea>
+            </div>
             <h1>Location</h1>
             <p>Choose where your event will take place</p>
             <p className="create-event-p">Where will your event take place? </p>
@@ -322,53 +304,13 @@ const {
                 </div>
               </div>
             )}
-            <div className="event-description">
-              <h3>Event Description*</h3>
-              <textarea name="description" id="description" value={description} onChange={(e)=>setEventField("description",e.target.value)}></textarea>
-            </div>
-            <h3>Organizer Page</h3>
-            <div className="organizer-page">
-              {currentUser &&
-                (currentUser.displayName ? (
-                  <div className="organizer-name">
-                    {currentUser.displayName}
-                  </div>
-                ) : (
-                  <div className="organizer-name">{userDoc.name}</div>
-                ))}
-            </div>
-            <Link to='/event/event-media'>
             <button
-            //   onClick={}
+            
               className="continue-button"
               type="submit"
             >
               Continue
             </button>
-            </Link>
-          </div>
-
-          <div className="create-event-container-right">
-            <div className="sidebar-card video-card">
-              <div className="video-thumbnail"
-              onClick={()=>window.open("https://youtu.be/Usa-fdfTV4U")}
-              >
-                <img
-                  src="https://cdn2.allevents.in/transup/95/d4ec5e75c243fa960a00c472041cbd/Frame-30-1-.png"
-                  alt="Video thumbnail"
-                />
-              </div>
-              <h2>Here's a video to help you get started!</h2>
-              <p>
-                Check out this guide to learn how to make the most of AllEvents.
-              </p>
-            </div>
-              <h2>Import your events from other platforms</h2>
-              <p>
-                Have you already published your events on other platforms like
-                Facebook, Eventbrite or your own website?
-              </p>
-              <button className="import-button">Import now</button>
           </div>
         </div>
       </div>
@@ -376,4 +318,4 @@ const {
   );
 }
 
-export default CreateEvent;
+export default EditEvent;
