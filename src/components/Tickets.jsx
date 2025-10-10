@@ -41,11 +41,9 @@ function Tickets() {
       },
       groupName: groupName || "",
     };
-
     addTicket(newTicket);
     closeSidebar();
   };
-
   const renderSidebar = () => {
     return (
       <div className="sidebar-overlay" onClick={closeSidebar}>
